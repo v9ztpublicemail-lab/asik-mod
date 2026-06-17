@@ -1,4 +1,4 @@
-package net.asik.mod;
+package com.example;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,7 +12,7 @@ public class ModCommands {
     public static void register() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             dispatcher.register(CommandManager.literal("asik")
-                .requires(source -> source.hasPermissionLevel(2)) // Needs OP/cheats enabled
+                .requires(source -> source.hasPermissionLevel(2)) 
                 .then(CommandManager.literal("bow")
                     .executes(context -> giveItem(context.getSource(), Asik.LIGHTNING_BOW, "Lightning Bow")))
                 .then(CommandManager.literal("pickaxe1")
@@ -34,8 +34,7 @@ public class ModCommands {
                 player.dropItem(stack, false);
             }
             
-            // In 1.21.1, sendFeedback takes a Supplier<Text> lambda expression
-            source.sendFeedback(() -> Text.literal("§a[AsikMod] Gave you " + itemName + "!"), false);
+            source.sendFeedback(() -> Text.literal("[AsikMod] Gave you " + itemName + "!"), false);
             return 1;
         } catch (Exception e) {
             source.sendError(Text.literal("Only players can use this command!"));
